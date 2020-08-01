@@ -1,16 +1,16 @@
-package me.r1411.finances.ui.dashboard;
+package me.r1411.finances.ui.more;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class MoreViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public MoreViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is more fragment");
     }
 
     public LiveData<String> getText() {

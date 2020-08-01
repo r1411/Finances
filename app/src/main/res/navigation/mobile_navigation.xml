@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="me.r1411.finances.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_add_expense"
+        android:name="me.r1411.finances.ui.add_expense.AddExpenseFragment"
+        android:label="@string/title_add_expense"
+        tools:layout="@layout/fragment_add_expense" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="me.r1411.finances.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_more"
+        android:name="me.r1411.finances.ui.more.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_more" />
 </navigation>

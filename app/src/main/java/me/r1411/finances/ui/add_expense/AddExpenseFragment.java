@@ -1,4 +1,4 @@
-package me.r1411.finances.ui.notifications;
+package me.r1411.finances.ui.add_expense;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import me.r1411.finances.R;
 
-public class NotificationsFragment extends Fragment {
+public class AddExpenseFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private AddExpenseViewModel addExpenseViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        addExpenseViewModel =
+                ViewModelProviders.of(this).get(AddExpenseViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_add_expense, container, false);
+        final TextView textView = root.findViewById(R.id.text_add_expense);
+        addExpenseViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

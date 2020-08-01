@@ -1,4 +1,4 @@
-package me.r1411.finances.ui.dashboard;
+package me.r1411.finances.ui.more;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import me.r1411.finances.R;
 
-public class DashboardFragment extends Fragment {
+public class MoreFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private MoreViewModel moreViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        moreViewModel =
+                ViewModelProviders.of(this).get(MoreViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_more, container, false);
+        final TextView textView = root.findViewById(R.id.text_more);
+        moreViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
