@@ -9,8 +9,7 @@ public class AddActionViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public AddActionViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is addAction fragment");
+
     }
 
     public LiveData<String> getText() {

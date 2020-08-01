@@ -3,4 +3,6 @@
     <string name="title_home">Главная</string>
     <string name="title_add_action">Бюджет</string>
     <string name="title_more">Меню</string>
+    <string name="income">Доход</string>
+    <string name="expense">Расход</string>
 </resources>
