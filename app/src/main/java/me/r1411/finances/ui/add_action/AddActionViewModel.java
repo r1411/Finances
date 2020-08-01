@@ -1,16 +1,16 @@
-package me.r1411.finances.ui.add_expense;
+package me.r1411.finances.ui.add_action;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AddExpenseViewModel extends ViewModel {
+public class AddActionViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AddExpenseViewModel() {
+    public AddActionViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is addExpense fragment");
+        mText.setValue("This is addAction fragment");
     }
 
     public LiveData<String> getText() {
