@@ -1,14 +1,15 @@
 package me.r1411.finances.ui.fragments.add_action.add_expense;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
@@ -32,10 +33,10 @@ public class AddExpenseViewModel extends ViewModel {
         dateString.setValue(FinancesApp.getContext().getString(R.string.today));
         Calendar currentTime = Calendar.getInstance();
 
-        int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = currentTime.get(Calendar.MINUTE);
 
-        timeString.setValue(currentHour + ":" + currentMinute);
+        String currentDateTimeString = new SimpleDateFormat("HH:mm").format(new Date());
+
+        timeString.setValue(currentDateTimeString);
         Log.d("ADDEXP", "AddExpenseViewModel init done");
     }
 
