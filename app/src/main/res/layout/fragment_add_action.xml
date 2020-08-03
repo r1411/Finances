@@ -16,6 +16,8 @@
         app:tabIndicatorHeight="3dp"
         app:tabMaxWidth="0dp"
         app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/colorPrimaryText"
+        app:tabTextColor="@color/mediumGray"
         app:tabIndicator="@drawable/tab_indicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
