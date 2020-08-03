@@ -59,14 +59,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Spinner
+            <me.r1411.finances.ui.elements.FakeSpinner
                 android:id="@+id/add_expense_date_spinner"
                 android:background="@drawable/bg_spinner_primary_light_outline"
                 android:layout_weight="8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"/>
-            <Spinner
+            <me.r1411.finances.ui.elements.FakeSpinner
                 android:id="@+id/add_expense_time_spinner"
                 android:background="@drawable/bg_spinner_primary_light_outline"
                 android:layout_weight="2"

@@ -1,6 +1,8 @@
 package me.r1411.finances.ui.fragments.add_action.add_expense;
 
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,11 +20,21 @@ public class AddExpenseViewModel extends ViewModel {
     private MutableLiveData<ArrayList<String>> spinnerElements;
     private MutableLiveData<String> dateString;
     private MutableLiveData<String> timeString;
+    private MutableLiveData<Integer> selectedYear;
+    private MutableLiveData<Integer> selectedMonth;
+    private MutableLiveData<Integer> selectedDay;
+    private MutableLiveData<Integer> selectedHour;
+    private MutableLiveData<Integer> selectedMinute;
 
     public AddExpenseViewModel() {
         spinnerElements = new MutableLiveData<>();
         dateString = new MutableLiveData<>();
         timeString = new MutableLiveData<>();
+        selectedYear = new MutableLiveData<>();
+        selectedMonth = new MutableLiveData<>();
+        selectedDay = new MutableLiveData<>();
+        selectedHour = new MutableLiveData<>();
+        selectedMinute = new MutableLiveData<>();
 
         ArrayList<String> debugElements = new ArrayList<>();
         debugElements.add("element 1");
@@ -31,12 +43,22 @@ public class AddExpenseViewModel extends ViewModel {
         debugElements.add("element 4");
         spinnerElements.setValue(debugElements);
         dateString.setValue(FinancesApp.getContext().getString(R.string.today));
-        Calendar currentTime = Calendar.getInstance();
 
+        final Calendar c = Calendar.getInstance();
+        int currentYear = c.get(Calendar.YEAR);
+        int currentMonth = c.get(Calendar.MONTH);
+        int currentDay = c.get(Calendar.DAY_OF_MONTH);
+        int currentHour = c.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = c.get(Calendar.MINUTE);
 
-        String currentDateTimeString = new SimpleDateFormat("HH:mm").format(new Date());
+        selectedYear.setValue(currentYear);
+        selectedMonth.setValue(currentMonth);
+        selectedDay.setValue(currentDay);
+        selectedHour.setValue(currentHour);
+        selectedMinute.setValue(currentMinute);
 
-        timeString.setValue(currentDateTimeString);
+        String currentTimeString = new SimpleDateFormat("HH:mm").format(new Date());
+        timeString.setValue(currentTimeString);
         Log.d("ADDEXP", "AddExpenseViewModel init done");
     }
 
@@ -48,7 +70,55 @@ public class AddExpenseViewModel extends ViewModel {
         return dateString;
     }
 
+    public void setDateString(String str) {
+        this.dateString.setValue(str);
+    }
+
     public MutableLiveData<String> getTimeString() {
         return timeString;
+    }
+
+    public void setTimeString(String str) {
+        this.timeString.setValue(str);
+    }
+
+    public MutableLiveData<Integer> getSelectedYear() {
+        return selectedYear;
+    }
+
+    public void setSelectedYear(int year) {
+        this.selectedYear.setValue(year);
+    }
+
+    public MutableLiveData<Integer> getSelectedMonth() {
+        return selectedMonth;
+    }
+
+    public void setSelectedMonth(int month) {
+        this.selectedMonth.setValue(month);
+    }
+
+    public MutableLiveData<Integer> getSelectedDay() {
+        return selectedDay;
+    }
+
+    public void setSelectedDay(int day) {
+        this.selectedDay.setValue(day);
+    }
+
+    public void setSelectedHour(int hour) {
+        this.selectedHour.setValue(hour);
+    }
+
+    public void setSelectedMinute(int minute) {
+        this.selectedMinute.setValue(minute);
+    }
+
+    public MutableLiveData<Integer> getSelectedHour() {
+        return this.selectedHour;
+    }
+
+    public MutableLiveData<Integer> getSelectedMinute() {
+        return this.selectedMinute;
     }
 }
