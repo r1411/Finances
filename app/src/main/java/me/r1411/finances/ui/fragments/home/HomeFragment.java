@@ -1,4 +1,4 @@
-package me.r1411.finances.ui.more;
+package me.r1411.finances.ui.fragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import me.r1411.finances.R;
 
-public class MoreFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private MoreViewModel moreViewModel;
+    private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        moreViewModel =
-                ViewModelProviders.of(this).get(MoreViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_more, container, false);
-        final TextView textView = root.findViewById(R.id.text_more);
-        moreViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel =
+                ViewModelProviders.of(this).get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final TextView textView = root.findViewById(R.id.text_home);
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

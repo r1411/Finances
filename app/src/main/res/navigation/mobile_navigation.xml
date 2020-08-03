@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="me.r1411.finances.ui.home.HomeFragment"
+        android:name="me.r1411.finances.ui.fragments.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_add_action"
-        android:name="me.r1411.finances.ui.add_action.AddActionFragment"
+        android:name="me.r1411.finances.ui.fragments.add_action.AddActionFragment"
         android:label="@string/title_add_action"
         tools:layout="@layout/fragment_add_action" />
 
     <fragment
         android:id="@+id/navigation_more"
-        android:name="me.r1411.finances.ui.more.MoreFragment"
+        android:name="me.r1411.finances.ui.fragments.more.MoreFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
 </navigation>

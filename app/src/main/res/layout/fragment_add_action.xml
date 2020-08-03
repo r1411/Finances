@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.add_action.AddActionFragment"
+    tools:context=".ui.fragments.add_action.AddActionFragment"
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimaryLight"
         app:tabIndicatorHeight="3dp"
         app:tabMaxWidth="0dp"
         app:tabGravity="fill"
@@ -22,26 +22,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/NoCapsTextAppearance"
-        tools:context=".ui.add_action.AddActionFragment">
+        tools:context=".ui.fragments.add_action.AddActionFragment">
 
         <com.google.android.material.tabs.TabItem
-            android:text="tab1"
+            tools:text="tab1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.tabs.TabItem
-            android:text="tab2"
+            tools:text="tab2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@id/add_action_tab_layout"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/add_action_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_action_tab_layout"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

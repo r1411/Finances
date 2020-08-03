@@ -1,4 +1,4 @@
-package me.r1411.finances.ui.add_action;
+package me.r1411.finances.ui.fragments.add_action.add_income;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

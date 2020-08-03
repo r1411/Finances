@@ -3,5 +3,10 @@
     <color name="colorPrimary">#43a047</color>
     <color name="colorPrimaryDark">#00701a</color>
     <color name="colorPrimaryLight">#76d275</color>
-    <color name="colorPrimaryText">#000000</color>
+    <color name="colorPrimaryText">#222222</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="darkGray">#555555</color>
+    <color name="lightGray">#AAAAAA</color>
+    <color name="ultraLightGray">#C8C8C8</color>
 </resources>

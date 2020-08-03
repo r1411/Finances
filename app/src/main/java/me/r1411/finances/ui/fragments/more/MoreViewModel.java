@@ -1,16 +1,16 @@
-package me.r1411.finances.ui.home;
+package me.r1411.finances.ui.fragments.more;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class MoreViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public MoreViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is more fragment");
     }
 
     public LiveData<String> getText() {

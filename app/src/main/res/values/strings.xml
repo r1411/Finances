@@ -5,4 +5,5 @@
     <string name="title_more">Меню</string>
     <string name="income">Доход</string>
     <string name="expense">Расход</string>
+    <string name="category">Категория</string>
 </resources>

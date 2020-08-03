@@ -1,4 +1,4 @@
-package me.r1411.finances.ui.add_action;
+package me.r1411.finances.ui.fragments.add_action;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
