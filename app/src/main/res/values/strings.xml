@@ -8,4 +8,6 @@
     <string name="category">Категория</string>
     <string name="choose_category">Выберите категорию</string>
     <string name="sum">Сумма</string>
+    <string name="date">Дата</string>
+    <string name="today">Сегодня</string>
 </resources>

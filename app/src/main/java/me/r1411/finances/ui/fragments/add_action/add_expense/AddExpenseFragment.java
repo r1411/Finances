@@ -26,14 +26,34 @@ public class AddExpenseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         addExpenseViewModel = ViewModelProviders.of(this).get(AddExpenseViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_add_expense, container, false);
-        final Spinner spinner = root.findViewById(R.id.add_expense_category_spinner);
+        final Spinner categorySpinner = root.findViewById(R.id.add_expense_category_spinner);
         addExpenseViewModel.getSpinnerElements().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.spinner_item, strings);
-                spinner.setAdapter(adapter);
+                categorySpinner.setAdapter(adapter);
             }
         });
+
+        final Spinner dateSpinner = root.findViewById(R.id.add_expense_date_spinner);
+        addExpenseViewModel.getDateString().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String str) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.spinner_item, new String[] {str});
+                dateSpinner.setAdapter(adapter);
+            }
+        });
+
+        final Spinner timeSpinner = root.findViewById(R.id.add_expense_time_spinner);
+        addExpenseViewModel.getTimeString().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String str) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.spinner_item, new String[] {str});
+                timeSpinner.setAdapter(adapter);
+            }
+        });
+
+
         return root;
     }
 
