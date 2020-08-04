@@ -3,12 +3,14 @@ package me.r1411.finances.ui.fragments.add_action.add_expense;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -27,6 +29,7 @@ import java.util.Date;
 import me.r1411.finances.R;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
+import me.r1411.finances.utils.DecimalDigitsInputFilter;
 
 public class AddExpenseFragment extends Fragment {
 
@@ -113,6 +116,7 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
+        ((EditText) root.findViewById(R.id.add_expense_sum_input)).setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
 
         return root;
     }
