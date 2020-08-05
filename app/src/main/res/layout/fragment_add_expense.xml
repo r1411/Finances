@@ -1,83 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:textSize="15sp"
-        android:textColor="@color/colorPrimaryText"
-        android:text="@string/category"
-        android:layout_marginHorizontal="16dp"/>
-    <Spinner
-        android:id="@+id/add_expense_category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dialog"
-        android:prompt="@string/choose_category"
-        android:background="@drawable/bg_spinner_primary_light_outline"
-        android:layout_marginHorizontal="16dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:textSize="15sp"
-        android:textColor="@color/colorPrimaryText"
-        android:text="@string/sum"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"/>
-    <EditText
-        android:id="@+id/add_expense_sum_input"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:padding="14dp"
-        android:textSize="16sp"
-        android:hint="0.00"
-        android:background="@drawable/bg_primary_light_outline"
-        android:textColor="@color/colorPrimaryText"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:textSize="15sp"
-        android:textColor="@color/colorPrimaryText"
-        android:text="@string/date"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"/>
     <LinearLayout
-        android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <me.r1411.finances.ui.elements.FakeSpinner
-            android:id="@+id/add_expense_date_spinner"
-            android:background="@drawable/bg_spinner_primary_light_outline"
-            android:layout_weight="8"
-            android:layout_width="wrap_content"
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"/>
-        <me.r1411.finances.ui.elements.FakeSpinner
-            android:id="@+id/add_expense_time_spinner"
-            android:background="@drawable/bg_spinner_primary_light_outline"
-            android:layout_weight="2"
-            android:layout_width="wrap_content"
+            android:padding="1dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryText"
+            android:text="@string/category"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"/>
+        <Spinner
+            android:id="@+id/add_expense_category_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"/>
+            android:spinnerMode="dialog"
+            android:prompt="@string/choose_category"
+            android:background="@drawable/bg_spinner_primary_light_outline"
+            android:layout_marginHorizontal="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryText"
+            android:text="@string/sum"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"/>
+        <EditText
+            android:id="@+id/add_expense_sum_input"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:padding="14dp"
+            android:textSize="16sp"
+            android:hint="0.00"
+            android:background="@drawable/bg_primary_light_outline"
+            android:textColor="@color/colorPrimaryText"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryText"
+            android:text="@string/date"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"/>
+        <LinearLayout
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <me.r1411.finances.ui.elements.FakeSpinner
+                android:id="@+id/add_expense_date_spinner"
+                android:background="@drawable/bg_spinner_primary_light_outline"
+                android:layout_weight="8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"/>
+            <me.r1411.finances.ui.elements.FakeSpinner
+                android:id="@+id/add_expense_time_spinner"
+                android:background="@drawable/bg_spinner_primary_light_outline"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+        <Button
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryText"
+            android:background="@drawable/bg_primary_light_outline_ripple"/>
     </LinearLayout>
-    <Button
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryText"
-        android:background="@drawable/bg_primary_light_outline_ripple"/>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
