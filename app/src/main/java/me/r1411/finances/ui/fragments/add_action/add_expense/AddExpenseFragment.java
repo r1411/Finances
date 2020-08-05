@@ -24,7 +24,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import me.r1411.finances.R;
 import me.r1411.finances.ui.elements.FakeSpinner;
@@ -101,6 +100,8 @@ public class AddExpenseFragment extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(root.getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+                        Log.d("ADDEXP", "h: " + hour + "; m: " + minute);
                         addExpenseViewModel.setSelectedHour(hour);
                         addExpenseViewModel.setSelectedMinute(minute);
 
@@ -111,7 +112,7 @@ public class AddExpenseFragment extends Fragment {
                         String currentTimeString = new SimpleDateFormat("HH:mm").format(cal.getTime());
                         addExpenseViewModel.setTimeString(currentTimeString);
                     }
-                }, addExpenseViewModel.getSelectedHour().getValue(), addExpenseViewModel.getSelectedMinute().getValue(), true);
+                }, addExpenseViewModel.getSelectedHour().getValue(), addExpenseViewModel.getSelectedMinute().getValue(), android.text.format.DateFormat.is24HourFormat(root.getContext()));
                 timePickerDialog.show();
             }
         });
