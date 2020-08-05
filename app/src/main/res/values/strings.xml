@@ -10,4 +10,5 @@
     <string name="sum">Сумма</string>
     <string name="date">Дата</string>
     <string name="today">Сегодня</string>
+    <string name="add">Добавить</string>
 </resources>
