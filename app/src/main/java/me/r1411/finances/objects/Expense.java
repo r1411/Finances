@@ -3,7 +3,7 @@ package me.r1411.finances.objects;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "expense")
 public class Expense {
 
     @PrimaryKey(autoGenerate = true)

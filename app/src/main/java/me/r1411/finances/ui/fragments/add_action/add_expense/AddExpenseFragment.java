@@ -34,6 +34,7 @@ import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
+import me.r1411.finances.objects.Category;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.ExpenseDao;
 import me.r1411.finances.ui.elements.FakeSpinner;
@@ -171,17 +172,6 @@ public class AddExpenseFragment extends Fragment {
 
 
             }
-        });
-
-        //TODO: debug, remove later
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            List<Expense> test = FinancesApp.getInstance().getDatabase().expenseDao().getAll();
-            Log.d("ADDEXP", "=================================");
-            for(Expense expense : test) {
-                Log.d("ADDEXP", "Expense(" + expense.getId() + "; " + expense.getCategory() + "; " + expense.getSum() + "; " + expense.getTs());
-            }
-            Log.d("ADDEXP", "=======================================");
         });
 
         return root;
