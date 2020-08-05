@@ -2,13 +2,17 @@ package me.r1411.finances.ui.fragments.add_action.add_expense;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,11 +28,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
+import me.r1411.finances.objects.Expense;
+import me.r1411.finances.objects.ExpenseDao;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
 import me.r1411.finances.utils.DecimalDigitsInputFilter;
+import me.r1411.finances.utils.FinancesDatabase;
 
 public class AddExpenseFragment extends Fragment {
 
@@ -101,7 +112,6 @@ public class AddExpenseFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-                        Log.d("ADDEXP", "h: " + hour + "; m: " + minute);
                         addExpenseViewModel.setSelectedHour(hour);
                         addExpenseViewModel.setSelectedMinute(minute);
 
@@ -117,7 +127,62 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
-        ((EditText) root.findViewById(R.id.add_expense_sum_input)).setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
+        final Button addExpenseButton = root.findViewById(R.id.add_expense_done_btn);
+
+        final EditText sumEditText = root.findViewById(R.id.add_expense_sum_input);
+        sumEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(10,2)});
+        sumEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                addExpenseButton.setEnabled(charSequence.toString().trim().length() > 0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        addExpenseButton.setEnabled(sumEditText.getText().toString().trim().length() > 0);
+
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, addExpenseViewModel.getSelectedYear().getValue());
+                cal.set(Calendar.MONTH, addExpenseViewModel.getSelectedMonth().getValue());
+                cal.set(Calendar.DAY_OF_MONTH, addExpenseViewModel.getSelectedDay().getValue());
+                cal.set(Calendar.HOUR_OF_DAY, addExpenseViewModel.getSelectedHour().getValue());
+                cal.set(Calendar.MINUTE, addExpenseViewModel.getSelectedMinute().getValue());
+
+                long ts = cal.getTimeInMillis() / 1000;
+                final Expense expense = new Expense("test", Double.valueOf(sumEditText.getText().toString()), ts);
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(() -> {
+                    FinancesDatabase db = FinancesApp.getInstance().getDatabase();
+                    ExpenseDao expenseDao = db.expenseDao();
+                    expenseDao.insert(expense);
+                });
+
+
+            }
+        });
+
+        //TODO: debug, remove later
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            List<Expense> test = FinancesApp.getInstance().getDatabase().expenseDao().getAll();
+            Log.d("ADDEXP", "=================================");
+            for(Expense expense : test) {
+                Log.d("ADDEXP", "Expense(" + expense.getId() + "; " + expense.getCategory() + "; " + expense.getSum() + "; " + expense.getTs());
+            }
+            Log.d("ADDEXP", "=======================================");
+        });
 
         return root;
     }
