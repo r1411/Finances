@@ -2,7 +2,6 @@ package me.r1411.finances.ui.fragments.add_action.add_expense;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -34,7 +33,6 @@ import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
-import me.r1411.finances.objects.Category;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.ExpenseDao;
 import me.r1411.finances.ui.elements.FakeSpinner;
@@ -52,13 +50,11 @@ public class AddExpenseFragment extends Fragment {
         addExpenseViewModel = ViewModelProviders.of(this).get(AddExpenseViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_add_expense, container, false);
         final Spinner categorySpinner = root.findViewById(R.id.add_expense_category_spinner);
-        addExpenseViewModel.getSpinnerElements().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(ArrayList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.spinner_item, strings);
-                categorySpinner.setAdapter(adapter);
-            }
+        addExpenseViewModel.getSpinnerElements().observe(getViewLifecycleOwner(), strings -> {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.spinner_item, strings);
+            categorySpinner.setAdapter(adapter);
         });
+
 
         final FakeSpinner dateSpinner = root.findViewById(R.id.add_expense_date_spinner);
         addExpenseViewModel.getDateString().observe(getViewLifecycleOwner(), new Observer<String>() {

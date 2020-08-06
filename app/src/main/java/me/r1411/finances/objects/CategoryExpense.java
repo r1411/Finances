@@ -3,14 +3,14 @@ package me.r1411.finances.objects;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "category")
-public class Category {
+@Entity(tableName = "expense_categories")
+public class CategoryExpense {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String name;
 
-    public Category(long id, String name) {
+    public CategoryExpense(long id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -12,12 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
+import me.r1411.finances.objects.CategoryExpense;
 
 public class AddExpenseViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<String>> spinnerElements;
+    private MutableLiveData<List<String>> spinnerElements;
     private MutableLiveData<String> dateString;
     private MutableLiveData<String> timeString;
     private MutableLiveData<Integer> selectedYear;
@@ -36,12 +41,21 @@ public class AddExpenseViewModel extends ViewModel {
         selectedHour = new MutableLiveData<>();
         selectedMinute = new MutableLiveData<>();
 
-        ArrayList<String> debugElements = new ArrayList<>();
-        debugElements.add("element 1");
-        debugElements.add("element 2");
-        debugElements.add("element 3");
-        debugElements.add("element 4");
-        spinnerElements.setValue(debugElements);
+
+        List<String> categories = new ArrayList<>();
+        spinnerElements.setValue(categories);
+
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            List<CategoryExpense> categoryExpenseList = FinancesApp.getInstance().getDatabase().categoryExpenseDao().getAll();
+            for(CategoryExpense category : categoryExpenseList) {
+                categories.add(category.getName());
+            }
+            spinnerElements.postValue(categories);
+        });
+
+
+
         dateString.setValue(FinancesApp.getContext().getString(R.string.today));
 
         final Calendar c = Calendar.getInstance();
@@ -62,7 +76,7 @@ public class AddExpenseViewModel extends ViewModel {
         Log.d("ADDEXP", "AddExpenseViewModel init done");
     }
 
-    public LiveData<ArrayList<String>> getSpinnerElements() {
+    public LiveData<List<String>> getSpinnerElements() {
         return spinnerElements;
     }
 
