@@ -10,4 +10,6 @@
     <color name="mediumGray">#777777</color>
     <color name="lightGray">#AAAAAA</color>
     <color name="ultraLightGray">#C8C8C8</color>
+    <color name="expenseColor">#f05545</color>
+    <color name="incomeColor">#43a047</color>
 </resources>

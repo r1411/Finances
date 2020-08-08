@@ -14,6 +14,9 @@ public interface ExpenseDao {
     @Query("SELECT * FROM expense")
     List<Expense> getAll();
 
+    @Query("SELECT * FROM expense ORDER BY ts DESC, id DESC LIMIT 3")
+    List<Expense> getLatest();
+
     @Query("SELECT * FROM expense WHERE id = :id")
     Expense getById(long id);
 
