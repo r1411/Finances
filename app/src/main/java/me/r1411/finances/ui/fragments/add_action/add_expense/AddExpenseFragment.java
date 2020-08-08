@@ -157,7 +157,7 @@ public class AddExpenseFragment extends Fragment {
                 cal.set(Calendar.MINUTE, addExpenseViewModel.getSelectedMinute().getValue());
 
                 long ts = cal.getTimeInMillis() / 1000;
-                final Expense expense = new Expense("test", Double.valueOf(sumEditText.getText().toString()), ts);
+                final Expense expense = new Expense(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts);
 
                 Executor executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
