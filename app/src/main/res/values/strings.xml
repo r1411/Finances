@@ -12,5 +12,6 @@
     <string name="today">Сегодня</string>
     <string name="add">Добавить</string>
     <string name="latest_expenses">Последние расходы</string>
+    <string name="show_all">Показть все</string>
     <string name="currency_postfix">₽</string>
 </resources>
