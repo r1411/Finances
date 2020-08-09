@@ -11,18 +11,26 @@ import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.objects.Expense;
+import me.r1411.finances.objects.Income;
 
 public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<List<Expense>> latestExpenses;
+    private MutableLiveData<List<Income>> latestIncomes;
 
     public HomeViewModel() {
         latestExpenses = new MutableLiveData<>();
+        latestIncomes = new MutableLiveData<>();
 
-        Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            List<Expense> testExpenses = FinancesApp.getInstance().getDatabase().expenseDao().getLatest();
-            latestExpenses.postValue(testExpenses);
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Expense> expenses = FinancesApp.getInstance().getDatabase().expenseDao().getLatest();
+            latestExpenses.postValue(expenses);
+        });
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Income> incomes = FinancesApp.getInstance().getDatabase().incomeDao().getLatest();
+            latestIncomes.postValue(incomes);
         });
 
     }
@@ -30,5 +38,9 @@ public class HomeViewModel extends ViewModel {
 
     public MutableLiveData<List<Expense>> getLatestExpenses() {
         return latestExpenses;
+    }
+
+    public MutableLiveData<List<Income>> getLatestIncomes() {
+        return latestIncomes;
     }
 }

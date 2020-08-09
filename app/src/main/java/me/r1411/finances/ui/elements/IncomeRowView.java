@@ -9,15 +9,15 @@ import java.util.Locale;
 
 import me.r1411.finances.R;
 
-public class ExpenseRowView extends LinearLayout {
+public class IncomeRowView extends LinearLayout {
     private long itemId;
     private String category;
     private double sum;
     private long ts;
 
-    public ExpenseRowView(Context context, long id, String category, double sum, long ts) {
+    public IncomeRowView(Context context, long id, String category, double sum, long ts) {
         super(context);
-        inflate(context, R.layout.layout_expense_row, this);
+        inflate(context, R.layout.layout_income_row, this);
 
         this.itemId = id;
         this.category = category;
@@ -40,8 +40,8 @@ public class ExpenseRowView extends LinearLayout {
         sumTextView.setText(sumDisplay);
 
         tsTextView.setText(DateUtils.getRelativeTimeSpanString(ts * 1000L).toString());
-
     }
+
 
     public long getItemId() {
         return itemId;
@@ -74,4 +74,6 @@ public class ExpenseRowView extends LinearLayout {
     public void setSum(double sum) {
         this.sum = sum;
     }
+
+
 }

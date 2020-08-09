@@ -17,7 +17,9 @@ import java.util.List;
 
 import me.r1411.finances.R;
 import me.r1411.finances.objects.Expense;
+import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.elements.ExpenseRowView;
+import me.r1411.finances.ui.elements.IncomeRowView;
 
 public class HomeFragment extends Fragment {
 
@@ -33,6 +35,14 @@ public class HomeFragment extends Fragment {
             for(Expense expense : expenses) {
                 ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs());
                 expensesLinearLayout.addView(rowView);
+            }
+        });
+        homeViewModel.getLatestIncomes().observe(getViewLifecycleOwner(), incomes -> {
+            LinearLayout incomesLinearLayout = root.findViewById(R.id.incomes_list_layout);
+            incomesLinearLayout.removeAllViews();
+            for(Income income : incomes) {
+                IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs());
+                incomesLinearLayout.addView(rowView);
             }
         });
         return root;
