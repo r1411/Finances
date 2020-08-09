@@ -5,12 +5,18 @@ import androidx.room.RoomDatabase;
 
 import me.r1411.finances.objects.CategoryExpense;
 import me.r1411.finances.objects.CategoryExpenseDao;
+import me.r1411.finances.objects.CategoryIncome;
+import me.r1411.finances.objects.CategoryIncomeDao;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.ExpenseDao;
+import me.r1411.finances.objects.Income;
+import me.r1411.finances.objects.IncomeDao;
 
-@Database(entities = {Expense.class, CategoryExpense.class}, version = 1)
+@Database(entities = {Expense.class, CategoryExpense.class, Income.class, CategoryIncome.class}, version = 1)
 public abstract class FinancesDatabase extends RoomDatabase {
 
     public abstract ExpenseDao expenseDao();
+    public abstract IncomeDao incomeDao();
     public abstract CategoryExpenseDao categoryExpenseDao();
+    public abstract CategoryIncomeDao categoryIncomeDao();
 }

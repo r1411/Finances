@@ -1,8 +1,6 @@
-package me.r1411.finances.ui.fragments.add_action.add_expense;
+package me.r1411.finances.ui.fragments.add_action.add_income;
 
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,13 +13,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
-import me.r1411.finances.objects.CategoryExpense;
+import me.r1411.finances.objects.CategoryIncome;
 
-public class AddExpenseViewModel extends ViewModel {
+public class AddIncomeViewModel extends ViewModel {
     private MutableLiveData<List<String>> spinnerElements;
     private MutableLiveData<String> dateString;
     private MutableLiveData<String> timeString;
@@ -31,7 +28,7 @@ public class AddExpenseViewModel extends ViewModel {
     private MutableLiveData<Integer> selectedHour;
     private MutableLiveData<Integer> selectedMinute;
 
-    public AddExpenseViewModel() {
+    public AddIncomeViewModel() {
         spinnerElements = new MutableLiveData<>();
         dateString = new MutableLiveData<>();
         timeString = new MutableLiveData<>();
@@ -41,14 +38,13 @@ public class AddExpenseViewModel extends ViewModel {
         selectedHour = new MutableLiveData<>();
         selectedMinute = new MutableLiveData<>();
 
-
         List<String> categories = new ArrayList<>();
         spinnerElements.setValue(categories);
 
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            List<CategoryExpense> categoryExpenseList = FinancesApp.getInstance().getDatabase().categoryExpenseDao().getAll();
-            for(CategoryExpense category : categoryExpenseList) {
+            List<CategoryIncome> categoryIncomeList = FinancesApp.getInstance().getDatabase().categoryIncomeDao().getAll();
+            for(CategoryIncome category : categoryIncomeList) {
                 categories.add(category.getName());
             }
             spinnerElements.postValue(categories);
@@ -71,7 +67,7 @@ public class AddExpenseViewModel extends ViewModel {
 
         String currentTimeString = new SimpleDateFormat("HH:mm").format(new Date());
         timeString.setValue(currentTimeString);
-        Log.d("ADDEXP", "AddExpenseViewModel init done");
+        Log.d("ADDINC", "AddIncomeViewModel init done");
     }
 
     public LiveData<List<String>> getSpinnerElements() {
