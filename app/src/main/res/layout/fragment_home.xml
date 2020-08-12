@@ -33,6 +33,7 @@
                 android:paddingHorizontal="8dp"
                 android:orientation="vertical"/>
             <LinearLayout
+                android:id="@+id/show_recent_expenses_btn"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -86,6 +87,7 @@
                 android:paddingHorizontal="8dp"
                 android:orientation="vertical"/>
             <LinearLayout
+                android:id="@+id/show_recent_incomes_btn"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

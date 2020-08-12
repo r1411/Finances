@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="me.r1411.finances.ui.fragments.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_expenseListFragment"
+            app:destination="@id/navigation_expense_list" />
+        <action
+            android:id="@+id/action_navigation_home_to_incomeListFragment"
+            app:destination="@id/navigation_income_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_add_action"
@@ -22,4 +29,26 @@
         android:name="me.r1411.finances.ui.fragments.more.MoreFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
+
+    <fragment
+        android:id="@+id/navigation_expense_list"
+        android:name="me.r1411.finances.ui.fragments.actions_lit.ActionsListFragment"
+        android:label="@string/expense_list"
+        tools:layout="@layout/fragment_action_list">
+        <argument
+            android:name="actionType"
+            app:argType="me.r1411.finances.objects.ActionType"
+            android:defaultValue="EXPENSE" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_income_list"
+        android:name="me.r1411.finances.ui.fragments.actions_lit.ActionsListFragment"
+        android:label="@string/income_list"
+        tools:layout="@layout/fragment_action_list">
+        <argument
+            android:name="actionType"
+            app:argType="me.r1411.finances.objects.ActionType"
+            android:defaultValue="INCOME" />
+    </fragment>
 </navigation>

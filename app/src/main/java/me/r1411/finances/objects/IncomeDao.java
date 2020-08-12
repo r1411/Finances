@@ -11,8 +11,8 @@ import java.util.List;
 @Dao
 public interface IncomeDao {
 
-    @Query("SELECT * FROM income")
-    public List<Income> getAll();
+    @Query("SELECT * FROM income ORDER BY ts DESC, id DESC")
+    List<Income> getAll();
 
     @Query("SELECT * FROM income ORDER BY ts DESC, id DESC LIMIT 3")
     List<Income> getLatest();

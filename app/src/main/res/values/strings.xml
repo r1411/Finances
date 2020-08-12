@@ -15,4 +15,6 @@
     <string name="latest_incomes">Последние доходы</string>
     <string name="show_all">Показть все</string>
     <string name="currency_postfix">₽</string>
+    <string name="expense_list">Список расходов</string>
+    <string name="income_list">Список доходов</string>
 </resources>

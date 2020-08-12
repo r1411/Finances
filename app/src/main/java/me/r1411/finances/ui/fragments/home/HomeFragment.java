@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import java.util.List;
 
 import me.r1411.finances.R;
+import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.elements.ExpenseRowView;
@@ -46,5 +48,16 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+        root.findViewById(R.id.show_recent_expenses_btn).setOnClickListener(view -> {
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_expenseListFragment);
+        });
+        root.findViewById(R.id.show_recent_incomes_btn).setOnClickListener(view -> {
+            Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_incomeListFragment);
+        });
     }
 }

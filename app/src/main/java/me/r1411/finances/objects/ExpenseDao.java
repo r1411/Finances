@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface ExpenseDao {
 
-    @Query("SELECT * FROM expense")
+    @Query("SELECT * FROM expense ORDER BY ts DESC, id DESC")
     List<Expense> getAll();
 
     @Query("SELECT * FROM expense ORDER BY ts DESC, id DESC LIMIT 3")

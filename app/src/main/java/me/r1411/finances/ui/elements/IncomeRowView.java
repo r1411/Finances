@@ -17,7 +17,7 @@ public class IncomeRowView extends LinearLayout {
 
     public IncomeRowView(Context context, long id, String category, double sum, long ts) {
         super(context);
-        inflate(context, R.layout.layout_income_row, this);
+        inflate(context, R.layout.layout_action_row, this);
 
         this.itemId = id;
         this.category = category;
@@ -28,6 +28,7 @@ public class IncomeRowView extends LinearLayout {
         TextView sumTextView = this.findViewById(R.id.sum_text);
         TextView tsTextView = this.findViewById(R.id.ts_text);
 
+        sumTextView.setTextColor(getResources().getColor(R.color.incomeColor));
         categoryTextView.setText(this.category);
 
         String sumDisplay = "";
