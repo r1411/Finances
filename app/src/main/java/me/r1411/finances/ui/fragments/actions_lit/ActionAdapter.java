@@ -36,7 +36,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @NonNull
     @Override
     public ActionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_row, parent, false);;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_card_row, parent, false);;
         return new ActionViewHolder(view);
     }
 
@@ -66,7 +66,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             }
             sumDisplay += FinancesApp.getContext().getString(R.string.currency_postfix);
             sumTextView.setText(sumDisplay);
-
+            if (action instanceof Expense) {
+                sumTextView.setTextColor(FinancesApp.getContext().getResources().getColor(R.color.expenseColor));
+            } else if (action instanceof Income) {
+                sumTextView.setTextColor(FinancesApp.getContext().getResources().getColor(R.color.incomeColor));
+            }
             tsTextView.setText(DateUtils.getRelativeTimeSpanString(action.getTs() * 1000L).toString());
 
         }
