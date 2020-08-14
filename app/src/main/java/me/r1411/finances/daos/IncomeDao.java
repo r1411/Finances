@@ -19,6 +19,9 @@ public interface IncomeDao {
     @Query("SELECT * FROM income ORDER BY ts DESC, id DESC LIMIT 3")
     List<Income> getLatest();
 
+    @Query("SELECT * FROM income WHERE ts >= :oldestDate")
+    List<Income> getFromDate(long oldestDate);
+
     @Query("SELECT * FROM income WHERE id = :id")
     Income getById(long id);
 
