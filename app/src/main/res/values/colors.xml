@@ -12,4 +12,23 @@
     <color name="ultraLightGray">#C8C8C8</color>
     <color name="expenseColor">#f05545</color>
     <color name="incomeColor">#43a047</color>
+
+    <array name="pieChartColors">
+        <item>#d81b60</item>
+        <item>#1e88e5</item>
+        <item>#43a047</item>
+        <item>#ffb300</item>
+        <item>#8e24aa</item>
+        <item>#00acc1</item>
+        <item>#fdd835</item>
+        <item>#5e35b1</item>
+        <item>#7cb342</item>
+        <item>#e53935</item>
+        <item>#3949ab</item>
+        <item>#fb8c00</item>
+        <item>#039be5</item>
+        <item>#00897b</item>
+        <item>#c0ca33</item>
+        <item>#f4511e</item>
+    </array>
 </resources>

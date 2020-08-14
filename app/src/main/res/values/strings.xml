@@ -17,4 +17,6 @@
     <string name="currency_postfix">₽</string>
     <string name="expense_list">Список расходов</string>
     <string name="income_list">Список доходов</string>
+    <string name="expenses_in_month">Расходы за %s</string>
+    <string name="incomes_in_month">Доходы за %s</string>
 </resources>

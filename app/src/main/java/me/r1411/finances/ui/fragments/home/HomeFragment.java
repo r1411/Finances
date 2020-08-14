@@ -5,30 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-
-import java.util.List;
+import androidx.viewpager2.widget.ViewPager2;
 
 import me.r1411.finances.R;
-import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.elements.ExpenseRowView;
 import me.r1411.finances.ui.elements.IncomeRowView;
+import me.r1411.finances.ui.fragments.stats_pie.StatsPiePagerAdapter;
+import me.relex.circleindicator.CircleIndicator3;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel.getLatestExpenses().observe(getViewLifecycleOwner(), expenses -> {
@@ -47,6 +44,11 @@ public class HomeFragment extends Fragment {
                 incomesLinearLayout.addView(rowView);
             }
         });
+        ViewPager2 viewPager = root.findViewById(R.id.home_pager);
+        StatsPiePagerAdapter adapter = new StatsPiePagerAdapter(this);
+        viewPager.setAdapter(adapter);
+        CircleIndicator3 indicator = root.findViewById(R.id.home_dots_indicator);
+        indicator.setViewPager(viewPager);
         return root;
     }
 
