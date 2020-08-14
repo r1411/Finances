@@ -1,4 +1,4 @@
-package me.r1411.finances.objects;
+package me.r1411.finances.daos;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,6 +7,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
+import me.r1411.finances.objects.CategoryExpense;
 
 @Dao
 public interface CategoryExpenseDao {

@@ -31,7 +31,7 @@ import java.util.concurrent.Executors;
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
 import me.r1411.finances.objects.Income;
-import me.r1411.finances.objects.IncomeDao;
+import me.r1411.finances.daos.IncomeDao;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
 import me.r1411.finances.utils.DecimalDigitsInputFilter;
