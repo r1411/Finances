@@ -26,21 +26,12 @@ public class AddActionFragment extends Fragment {
         addActionViewModel = ViewModelProviders.of(this).get(AddActionViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_action, container, false);
         TabLayout tabLayout = root.findViewById(R.id.add_action_tab_layout);
+        collectionAdapter = new CollectionAdapter(this);
+        viewPager = root.findViewById(R.id.add_action_pager);
+        viewPager.setAdapter(collectionAdapter);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(position == 0 ? R.string.expense : R.string.income)).attach();
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        collectionAdapter = new CollectionAdapter(this);
-        viewPager = view.findViewById(R.id.add_action_pager);
-        viewPager.setAdapter(collectionAdapter);
-        TabLayout tabLayout = view.findViewById(R.id.add_action_tab_layout);
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(position == 0 ? R.string.expense : R.string.income);
-            }
-        }).attach();
-    }
 }
 
