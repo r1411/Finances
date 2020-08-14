@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/navigation_expense_list"
-        android:name="me.r1411.finances.ui.fragments.actions_lit.ActionsListFragment"
+        android:name="me.r1411.finances.ui.fragments.actions_list.ActionsListFragment"
         android:label="@string/expense_list"
         tools:layout="@layout/fragment_action_list">
         <argument
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/navigation_income_list"
-        android:name="me.r1411.finances.ui.fragments.actions_lit.ActionsListFragment"
+        android:name="me.r1411.finances.ui.fragments.actions_list.ActionsListFragment"
         android:label="@string/income_list"
         tools:layout="@layout/fragment_action_list">
         <argument
