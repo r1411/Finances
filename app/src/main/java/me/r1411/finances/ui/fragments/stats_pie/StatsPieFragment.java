@@ -11,12 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import me.r1411.finances.R;
 import me.r1411.finances.objects.ActionType;
@@ -73,7 +75,9 @@ public class StatsPieFragment extends Fragment {
             pieChart.setData(pieData);
             pieChart.invalidate();
         });
-        ((TextView) root.findViewById(R.id.stats_pie_title)).setText(actionType == ActionType.EXPENSE ? R.string.expenses_in_month  : R.string.incomes_in_month);
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "LLLL", Locale.getDefault());
+        String monthText = String.format(getResources().getString(actionType == ActionType.EXPENSE ? R.string.expenses_in_month  : R.string.incomes_in_month), dateFormat.format(new Date()));
+        ((TextView) root.findViewById(R.id.stats_pie_title)).setText(monthText);
         return root;
     }
 
