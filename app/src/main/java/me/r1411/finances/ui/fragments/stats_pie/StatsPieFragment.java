@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
 import me.r1411.finances.objects.ActionType;
 
@@ -56,6 +57,9 @@ public class StatsPieFragment extends Fragment {
         pieChart.setUsePercentValues(true);
         pieChart.setTransparentCircleRadius(0);
         pieChart.setExtraOffsets(0, 10.0f, 0, 10.0f);
+        pieChart.setNoDataText(getContext().getString(R.string.loading_dots));
+        pieChart.setNoDataTextColor(getResources().getColor(R.color.colorPrimaryText));
+        pieChart.setCenterTextColor(getResources().getColor(actionType == ActionType.EXPENSE ? R.color.expenseColor : R.color.incomeColor));
 
         statsPieViewModel.getPieEntries().observe(getViewLifecycleOwner(), pieEntries -> {
             PieDataSet pieDataSet = new PieDataSet(pieEntries, null);
@@ -75,6 +79,18 @@ public class StatsPieFragment extends Fragment {
             pieChart.setData(pieData);
             pieChart.invalidate();
         });
+
+        statsPieViewModel.getPieCenterValue().observe(getViewLifecycleOwner(), pieCenterValue -> {
+            String pieCenterString = Math.round(pieCenterValue) + FinancesApp.getContext().getString(R.string.currency_postfix);
+            pieChart.setCenterText(pieCenterString);
+            int textSize = 24;
+            if (pieCenterValue >= 1000000)
+                textSize = 22;
+            if (pieCenterValue >= 10000000)
+                textSize = 20;
+            pieChart.setCenterTextSize(textSize);
+        });
+
         SimpleDateFormat dateFormat = new SimpleDateFormat( "LLLL", Locale.getDefault());
         String monthText = String.format(getResources().getString(actionType == ActionType.EXPENSE ? R.string.expenses_in_month  : R.string.incomes_in_month), dateFormat.format(new Date()));
         ((TextView) root.findViewById(R.id.stats_pie_title)).setText(monthText);

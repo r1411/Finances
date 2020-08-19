@@ -17,6 +17,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
+import me.r1411.finances.R;
 import me.r1411.finances.objects.Action;
 import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
@@ -24,9 +25,11 @@ import me.r1411.finances.objects.Income;
 
 public class StatsPieViewModel extends ViewModel {
     private MutableLiveData<List<PieEntry>> pieEntries;
+    private MutableLiveData<Double> pieCenterValue;
 
     public StatsPieViewModel(ActionType actionType) {
-        pieEntries = new MutableLiveData<>();
+        this.pieEntries = new MutableLiveData<>();
+        this.pieCenterValue = new MutableLiveData<>();
 
         List<PieEntry> entriesList = new ArrayList<>();
 
@@ -42,6 +45,7 @@ public class StatsPieViewModel extends ViewModel {
             List<Action> actions = new ArrayList<>();
             Map<String, PieEntry> pieEntryMap = new HashMap<>();
             Log.d("SPVM", "Oldest date: " + (calendar.getTime().getTime() / 1000));
+            double centerValue = 0;
             if(actionType == ActionType.EXPENSE) {
                 List<Expense> expenses = FinancesApp.getInstance().getDatabase().expenseDao().getFromDate(calendar.getTime().getTime() / 1000);
                 actions.addAll(expenses);
@@ -50,6 +54,7 @@ public class StatsPieViewModel extends ViewModel {
                 actions.addAll(incomes);
             }
             for(Action action : actions) {
+                centerValue += action.getSum();
                 if(pieEntryMap.containsKey(action.getCategory())) {
                     pieEntryMap.get(action.getCategory()).setY((float) (pieEntryMap.get(action.getCategory()).getY() + action.getSum()));
                 } else {
@@ -58,11 +63,16 @@ public class StatsPieViewModel extends ViewModel {
             }
             entriesList.addAll(pieEntryMap.values());
             this.pieEntries.postValue(entriesList);
+            this.pieCenterValue.postValue(centerValue);
         });
 
     }
 
     public MutableLiveData<List<PieEntry>> getPieEntries() {
         return pieEntries;
+    }
+
+    public MutableLiveData<Double> getPieCenterValue() {
+        return pieCenterValue;
     }
 }
