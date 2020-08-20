@@ -14,8 +14,9 @@ public class IncomeRowView extends LinearLayout {
     private String category;
     private double sum;
     private long ts;
+    private String comment;
 
-    public IncomeRowView(Context context, long id, String category, double sum, long ts) {
+    public IncomeRowView(Context context, long id, String category, double sum, long ts, String comment) {
         super(context);
         inflate(context, R.layout.layout_action_row, this);
 
@@ -23,15 +24,17 @@ public class IncomeRowView extends LinearLayout {
         this.category = category;
         this.sum = sum;
         this.ts = ts;
+        this.comment = comment;
 
         TextView categoryTextView = this.findViewById(R.id.category_text);
         TextView sumTextView = this.findViewById(R.id.sum_text);
         TextView tsTextView = this.findViewById(R.id.ts_text);
+        TextView commentTextView = this.findViewById(R.id.comment_text);
 
         sumTextView.setTextColor(getResources().getColor(R.color.incomeColor));
         categoryTextView.setText(this.category);
 
-        String sumDisplay = "";
+        String sumDisplay;
         if (this.sum == (long) sum) {
             sumDisplay = String.format(Locale.getDefault(), "%d",(long)this.sum);
         } else {
@@ -41,6 +44,10 @@ public class IncomeRowView extends LinearLayout {
         sumTextView.setText(sumDisplay);
 
         tsTextView.setText(DateUtils.getRelativeTimeSpanString(ts * 1000L).toString());
+        commentTextView.setText(this.comment);
+        if(this.comment.isEmpty()) {
+            commentTextView.setVisibility(GONE);
+        }
     }
 
 

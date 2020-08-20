@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
             expensesLinearLayout.removeAllViews();
             if(expenses.size() > 0) {
                 for(Expense expense : expenses) {
-                    ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs());
+                    ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs(), expense.getComment());
                     expensesLinearLayout.addView(rowView);
                 }
             } else {
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
             incomesLinearLayout.removeAllViews();
             if(incomes.size() > 0) {
                 for(Income income : incomes) {
-                    IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs());
+                    IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs(), income.getComment());
                     incomesLinearLayout.addView(rowView);
                 }
             } else {

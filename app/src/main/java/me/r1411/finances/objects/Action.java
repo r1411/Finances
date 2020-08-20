@@ -8,11 +8,13 @@ public class Action {
     private String category;
     private double sum;
     private long ts;
+    private String comment;
 
-    public Action(String category, double sum, long ts) {
+    public Action(String category, double sum, long ts, String comment) {
         this.category = category;
         this.sum = sum;
         this.ts = ts;
+        this.comment = comment;
     }
 
     public String getCategory() {
@@ -45,5 +47,13 @@ public class Action {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

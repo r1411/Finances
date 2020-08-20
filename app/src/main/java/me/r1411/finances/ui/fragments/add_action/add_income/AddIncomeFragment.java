@@ -145,6 +145,8 @@ public class AddIncomeFragment extends Fragment {
         });
         addIncomeButton.setEnabled(sumEditText.getText().toString().trim().length() > 0);
 
+        EditText commentEditText = root.findViewById(R.id.add_income_comment_input);
+
         addIncomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +158,7 @@ public class AddIncomeFragment extends Fragment {
                 cal.set(Calendar.MINUTE, addIncomeViewModel.getSelectedMinute().getValue());
 
                 long ts = cal.getTimeInMillis() / 1000;
-                final Income income = new Income(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts);
+                final Income income = new Income(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
 
                 Executor executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {

@@ -36,7 +36,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @NonNull
     @Override
     public ActionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_card_row, parent, false);;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_card_row, parent, false);
         return new ActionViewHolder(view);
     }
 
@@ -54,10 +54,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         private TextView categoryTextView;
         private TextView tsTextView;
         private TextView sumTextView;
+        private TextView commentTextView;
 
         public void bind(Action action) {
             categoryTextView.setText(action.getCategory());
-            String sumDisplay = "";
+            String sumDisplay;
 
             if (action.getSum() == (long) action.getSum()) {
                 sumDisplay = String.format(Locale.getDefault(), "%d",(long)action.getSum());
@@ -72,7 +73,10 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                 sumTextView.setTextColor(FinancesApp.getContext().getResources().getColor(R.color.incomeColor));
             }
             tsTextView.setText(DateUtils.getRelativeTimeSpanString(action.getTs() * 1000L).toString());
-
+            commentTextView.setText(action.getComment());
+            if(action.getComment().isEmpty()) {
+                commentTextView.setVisibility(View.GONE);
+            }
         }
 
         public ActionViewHolder(@NonNull View itemView) {
@@ -80,6 +84,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             this.categoryTextView = itemView.findViewById(R.id.category_text);
             this.tsTextView = itemView.findViewById(R.id.ts_text);
             this.sumTextView = itemView.findViewById(R.id.sum_text);
+            this.commentTextView = itemView.findViewById(R.id.comment_text);
         }
     }
 

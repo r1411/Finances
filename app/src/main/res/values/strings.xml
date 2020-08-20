@@ -22,4 +22,6 @@
     <string name="loading_dots">Загрузка…</string>
     <string name="no_pie_data">Нет данных для отображения</string>
     <string name="no_actions_data">Нет данных для отображения</string>
+    <string name="comment">Комментарий</string>
+    <string name="comment_hint">Введите комментарий</string>
 </resources>

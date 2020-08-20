@@ -147,6 +147,8 @@ public class AddExpenseFragment extends Fragment {
         });
         addExpenseButton.setEnabled(sumEditText.getText().toString().trim().length() > 0);
 
+        EditText commentEditText = root.findViewById(R.id.add_expense_comment_input);
+
         addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,7 +160,7 @@ public class AddExpenseFragment extends Fragment {
                 cal.set(Calendar.MINUTE, addExpenseViewModel.getSelectedMinute().getValue());
 
                 long ts = cal.getTimeInMillis() / 1000;
-                final Expense expense = new Expense(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts);
+                final Expense expense = new Expense(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
 
                 Executor executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {

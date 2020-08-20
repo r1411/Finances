@@ -22,13 +22,21 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryText"
+            android:fontFamily="sans-serif-medium"
             tools:text="Транспорт" />
+        <TextView
+            android:id="@+id/comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryText"
+            tools:text="Пицца" />
         <TextView
             android:id="@+id/ts_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/darkGray"
             android:gravity="start"
             tools:text="14 нояб. 2020" />
     </LinearLayout>
@@ -40,6 +48,6 @@
         android:textSize="20sp"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        tools:text="12345 ₽" />
+        tools:text="12345₽" />
 
 </LinearLayout>
