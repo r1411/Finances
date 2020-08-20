@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -62,9 +63,9 @@ public class StatsPieFragment extends Fragment {
         pieChart.setExtraOffsets(0, 10.0f, 0, 10.0f);
         pieChart.getPaint(Chart.PAINT_INFO).setTextSize(Utils.convertDpToPixel(18f));
         pieChart.setNoDataText(getContext().getString(R.string.loading_dots));
-        pieChart.setNoDataTextColor(getResources().getColor(R.color.lightGray));
+        pieChart.setNoDataTextColor(ContextCompat.getColor(getContext(), R.color.lightGray));
         pieChart.setNoDataTextTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-        pieChart.setCenterTextColor(getResources().getColor(actionType == ActionType.EXPENSE ? R.color.expenseColor : R.color.incomeColor));
+        pieChart.setCenterTextColor(ContextCompat.getColor(getContext(), actionType == ActionType.EXPENSE ? R.color.expenseColor : R.color.incomeColor));
 
         statsPieViewModel.getPieEntries().observe(getViewLifecycleOwner(), pieEntries -> {
             if(pieEntries.size() > 0) {
@@ -79,7 +80,7 @@ public class StatsPieFragment extends Fragment {
                 PieData pieData = new PieData(pieDataSet);
                 pieData.setValueFormatter(new PercentValuesFormatter(pieChart));
                 pieData.setValueTextSize(12);
-                pieData.setValueTextColor(getResources().getColor(R.color.colorPrimaryText));
+                pieData.setValueTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryText));
                 pieChart.setData(pieData);
             } else {
                 pieChart.setNoDataText(getContext().getString(R.string.no_pie_data));

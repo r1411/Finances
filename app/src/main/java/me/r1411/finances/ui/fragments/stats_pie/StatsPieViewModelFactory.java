@@ -13,6 +13,7 @@ public class StatsPieViewModelFactory implements ViewModelProvider.Factory {
         this.actionType = actionType;
     }
 
+    @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

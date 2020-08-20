@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -68,9 +69,9 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             sumDisplay += FinancesApp.getContext().getString(R.string.currency_postfix);
             sumTextView.setText(sumDisplay);
             if (action instanceof Expense) {
-                sumTextView.setTextColor(FinancesApp.getContext().getResources().getColor(R.color.expenseColor));
+                sumTextView.setTextColor(ContextCompat.getColor(FinancesApp.getContext(), R.color.expenseColor));
             } else if (action instanceof Income) {
-                sumTextView.setTextColor(FinancesApp.getContext().getResources().getColor(R.color.incomeColor));
+                sumTextView.setTextColor(ContextCompat.getColor(FinancesApp.getContext(), R.color.incomeColor));
             }
             tsTextView.setText(DateUtils.getRelativeTimeSpanString(action.getTs() * 1000L).toString());
             commentTextView.setText(action.getComment());

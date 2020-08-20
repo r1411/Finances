@@ -12,7 +12,7 @@ import me.r1411.finances.daos.ExpenseDao;
 import me.r1411.finances.objects.Income;
 import me.r1411.finances.daos.IncomeDao;
 
-@Database(entities = {Expense.class, CategoryExpense.class, Income.class, CategoryIncome.class}, version = 1)
+@Database(entities = {Expense.class, CategoryExpense.class, Income.class, CategoryIncome.class}, version = 1, exportSchema = false)
 public abstract class FinancesDatabase extends RoomDatabase {
 
     public abstract ExpenseDao expenseDao();

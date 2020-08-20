@@ -5,6 +5,8 @@ import android.text.format.DateUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.Locale;
 
 import me.r1411.finances.R;
@@ -31,7 +33,7 @@ public class ExpenseRowView extends LinearLayout {
         TextView tsTextView = this.findViewById(R.id.ts_text);
         TextView commentTextView = this.findViewById(R.id.comment_text);
 
-        sumTextView.setTextColor(getResources().getColor(R.color.expenseColor));
+        sumTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.expenseColor));
         categoryTextView.setText(this.category);
 
         String sumDisplay;
