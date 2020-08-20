@@ -1,5 +1,6 @@
 package me.r1411.finances.ui.fragments.stats_pie;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,7 +62,8 @@ public class StatsPieFragment extends Fragment {
         pieChart.setExtraOffsets(0, 10.0f, 0, 10.0f);
         pieChart.getPaint(Chart.PAINT_INFO).setTextSize(Utils.convertDpToPixel(18f));
         pieChart.setNoDataText(getContext().getString(R.string.loading_dots));
-        pieChart.setNoDataTextColor(getResources().getColor(R.color.colorPrimaryText));
+        pieChart.setNoDataTextColor(getResources().getColor(R.color.lightGray));
+        pieChart.setNoDataTextTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         pieChart.setCenterTextColor(getResources().getColor(actionType == ActionType.EXPENSE ? R.color.expenseColor : R.color.incomeColor));
 
         statsPieViewModel.getPieEntries().observe(getViewLifecycleOwner(), pieEntries -> {
