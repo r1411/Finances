@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,8 +30,8 @@ import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
-import me.r1411.finances.objects.Income;
 import me.r1411.finances.daos.IncomeDao;
+import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
 import me.r1411.finances.utils.DecimalDigitsInputFilter;
@@ -43,7 +43,7 @@ public class AddIncomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        addIncomeViewModel = ViewModelProviders.of(this).get(AddIncomeViewModel.class);
+        addIncomeViewModel = new ViewModelProvider(this).get(AddIncomeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_add_income, container, false);
         final Spinner categorySpinner = root.findViewById(R.id.add_income_category_spinner);
         addIncomeViewModel.getSpinnerElements().observe(getViewLifecycleOwner(), strings -> {

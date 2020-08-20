@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -23,7 +22,7 @@ public class AddActionFragment extends Fragment {
     private ViewPager2 viewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        addActionViewModel = ViewModelProviders.of(this).get(AddActionViewModel.class);
+        addActionViewModel = new ViewModelProvider(this).get(AddActionViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_action, container, false);
         TabLayout tabLayout = root.findViewById(R.id.add_action_tab_layout);
         collectionAdapter = new CollectionAdapter(this);
