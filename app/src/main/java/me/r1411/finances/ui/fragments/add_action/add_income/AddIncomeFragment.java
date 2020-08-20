@@ -131,7 +131,11 @@ public class AddIncomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                addIncomeButton.setEnabled(charSequence.toString().trim().length() > 0);
+                addIncomeButton.setEnabled(false);
+                try {
+                    Double.parseDouble(sumEditText.getText().toString());
+                    addIncomeButton.setEnabled(true);
+                } catch (Exception ignored) {}
             }
 
             @Override

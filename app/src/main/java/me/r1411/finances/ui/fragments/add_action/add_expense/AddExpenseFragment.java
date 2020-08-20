@@ -133,7 +133,11 @@ public class AddExpenseFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                addExpenseButton.setEnabled(charSequence.toString().trim().length() > 0);
+                addExpenseButton.setEnabled(false);
+                try {
+                    Double.parseDouble(sumEditText.getText().toString());
+                    addExpenseButton.setEnabled(true);
+                } catch (Exception ignored) {}
             }
 
             @Override
