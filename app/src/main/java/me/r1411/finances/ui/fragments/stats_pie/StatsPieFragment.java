@@ -12,9 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,38 +59,43 @@ public class StatsPieFragment extends Fragment {
         pieChart.setUsePercentValues(true);
         pieChart.setTransparentCircleRadius(0);
         pieChart.setExtraOffsets(0, 10.0f, 0, 10.0f);
+        pieChart.getPaint(Chart.PAINT_INFO).setTextSize(Utils.convertDpToPixel(18f));
         pieChart.setNoDataText(getContext().getString(R.string.loading_dots));
         pieChart.setNoDataTextColor(getResources().getColor(R.color.colorPrimaryText));
         pieChart.setCenterTextColor(getResources().getColor(actionType == ActionType.EXPENSE ? R.color.expenseColor : R.color.incomeColor));
 
         statsPieViewModel.getPieEntries().observe(getViewLifecycleOwner(), pieEntries -> {
-            PieDataSet pieDataSet = new PieDataSet(pieEntries, null);
-            pieDataSet.setColors(getResources().getIntArray(R.array.pieChartColors));
-            //
-            pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-            pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-            pieDataSet.setValueLinePart1OffsetPercentage(100f);
-            pieDataSet.setValueLinePart1Length(0.6f);
-            pieDataSet.setValueLinePart2Length(0.6f);
-            //
-            PieData pieData = new PieData(pieDataSet);
+            if(pieEntries.size() > 0) {
+                PieDataSet pieDataSet = new PieDataSet(pieEntries, null);
+                pieDataSet.setColors(getResources().getIntArray(R.array.pieChartColors));
+                pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                pieDataSet.setValueLinePart1OffsetPercentage(100f);
+                pieDataSet.setValueLinePart1Length(0.6f);
+                pieDataSet.setValueLinePart2Length(0.6f);
 
-            pieData.setValueFormatter(new PercentValuesFormatter(pieChart));
-            pieData.setValueTextSize(12);
-            pieData.setValueTextColor(getResources().getColor(R.color.colorPrimaryText));
-            pieChart.setData(pieData);
+                PieData pieData = new PieData(pieDataSet);
+                pieData.setValueFormatter(new PercentValuesFormatter(pieChart));
+                pieData.setValueTextSize(12);
+                pieData.setValueTextColor(getResources().getColor(R.color.colorPrimaryText));
+                pieChart.setData(pieData);
+            } else {
+                pieChart.setNoDataText(getContext().getString(R.string.no_pie_data));
+            }
             pieChart.invalidate();
         });
 
         statsPieViewModel.getPieCenterValue().observe(getViewLifecycleOwner(), pieCenterValue -> {
-            String pieCenterString = Math.round(pieCenterValue) + FinancesApp.getContext().getString(R.string.currency_postfix);
-            pieChart.setCenterText(pieCenterString);
-            int textSize = 24;
-            if (pieCenterValue >= 1000000)
-                textSize = 22;
-            if (pieCenterValue >= 10000000)
-                textSize = 20;
-            pieChart.setCenterTextSize(textSize);
+            if(pieCenterValue > 0) {
+                String pieCenterString = Math.round(pieCenterValue) + FinancesApp.getContext().getString(R.string.currency_postfix);
+                pieChart.setCenterText(pieCenterString);
+                int textSize = 24;
+                if (pieCenterValue >= 1000000)
+                    textSize = 22;
+                if (pieCenterValue >= 10000000)
+                    textSize = 20;
+                pieChart.setCenterTextSize(textSize);
+            }
         });
 
         SimpleDateFormat dateFormat = new SimpleDateFormat( "LLLL", Locale.getDefault());
