@@ -21,4 +21,5 @@
     <string name="incomes_in_month">Доходы за %s</string>
     <string name="loading_dots">Загрузка…</string>
     <string name="no_pie_data">Нет данных для отображения</string>
+    <string name="no_actions_data">Нет данных для отображения</string>
 </resources>

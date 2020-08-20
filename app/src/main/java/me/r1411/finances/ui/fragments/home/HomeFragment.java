@@ -31,17 +31,25 @@ public class HomeFragment extends Fragment {
         homeViewModel.getLatestExpenses().observe(getViewLifecycleOwner(), expenses -> {
             LinearLayout expensesLinearLayout = root.findViewById(R.id.expenses_list_layout);
             expensesLinearLayout.removeAllViews();
-            for(Expense expense : expenses) {
-                ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs());
-                expensesLinearLayout.addView(rowView);
+            if(expenses.size() > 0) {
+                for(Expense expense : expenses) {
+                    ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs());
+                    expensesLinearLayout.addView(rowView);
+                }
+            } else {
+                inflater.inflate(R.layout.layout_no_data_row, expensesLinearLayout);
             }
         });
         homeViewModel.getLatestIncomes().observe(getViewLifecycleOwner(), incomes -> {
             LinearLayout incomesLinearLayout = root.findViewById(R.id.incomes_list_layout);
             incomesLinearLayout.removeAllViews();
-            for(Income income : incomes) {
-                IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs());
-                incomesLinearLayout.addView(rowView);
+            if(incomes.size() > 0) {
+                for(Income income : incomes) {
+                    IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs());
+                    incomesLinearLayout.addView(rowView);
+                }
+            } else {
+                inflater.inflate(R.layout.layout_no_data_row, incomesLinearLayout);
             }
         });
         ViewPager2 viewPager = root.findViewById(R.id.home_pager);
