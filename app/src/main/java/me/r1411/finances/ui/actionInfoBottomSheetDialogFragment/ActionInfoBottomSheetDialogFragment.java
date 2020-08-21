@@ -1,6 +1,7 @@
 package me.r1411.finances.ui.actionInfoBottomSheetDialogFragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -79,9 +81,24 @@ public class ActionInfoBottomSheetDialogFragment extends BottomSheetDialogFragme
 
         Calendar c = Calendar.getInstance();
         c.setTime(new Date(ts * 1000L));
-
         dateTextView.setText(DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT).format(c.getTime()));
 
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                //TODO: Create interface
+            }
+        };
+
+        deleteButton.setOnClickListener(buttonView -> {
+            this.dismiss();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);
+            builder.setTitle(getContext().getString(R.string.confirmation));
+            builder.setMessage(getContext().getString(R.string.delete_confirmation));
+            builder.setPositiveButton(getContext().getString(R.string.yes), dialogClickListener);
+            builder.setNegativeButton(getContext().getString(R.string.no), dialogClickListener);
+            builder.show();
+        });
         return view;
     }
 
