@@ -2,14 +2,17 @@ package me.r1411.finances.ui.elements;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Locale;
 
 import me.r1411.finances.R;
+import me.r1411.finances.ui.actionInfoBottomSheetDialogFragment.ActionInfoBottomSheetDialogFragment;
 
 public class IncomeRowView extends LinearLayout {
     private long itemId;
@@ -52,6 +55,32 @@ public class IncomeRowView extends LinearLayout {
         }
     }
 
+    @Override
+    public boolean performClick() {
+        ActionInfoBottomSheetDialogFragment addPhotoBottomDialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(this.getCategory(), this.getSum(), this.getComment(), this.getTs());
+        addPhotoBottomDialogFragment.show(FragmentManager.findFragment(this).getChildFragmentManager(), "action_info_dialog_fragment");
+        return super.performClick();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                return true;
+
+            case MotionEvent.ACTION_UP:
+                performClick();
+                return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        this.onTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
+    }
+
 
     public long getItemId() {
         return itemId;
@@ -83,6 +112,14 @@ public class IncomeRowView extends LinearLayout {
 
     public void setSum(double sum) {
         this.sum = sum;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 

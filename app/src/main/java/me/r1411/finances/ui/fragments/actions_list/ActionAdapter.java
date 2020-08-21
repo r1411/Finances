@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import me.r1411.finances.R;
 import me.r1411.finances.objects.Action;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.Income;
+import me.r1411.finances.ui.actionInfoBottomSheetDialogFragment.ActionInfoBottomSheetDialogFragment;
 
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionViewHolder> {
     private List<Action> actionList = new ArrayList<>();
@@ -37,9 +39,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @NonNull
     @Override
     public ActionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_card_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_action_row, parent, false);
         return new ActionViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ActionViewHolder holder, int position) {
@@ -51,7 +55,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         return actionList.size();
     }
 
-    public class ActionViewHolder extends RecyclerView.ViewHolder {
+    public class ActionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView categoryTextView;
         private TextView tsTextView;
         private TextView sumTextView;
@@ -86,6 +90,15 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             this.tsTextView = itemView.findViewById(R.id.ts_text);
             this.sumTextView = itemView.findViewById(R.id.sum_text);
             this.commentTextView = itemView.findViewById(R.id.comment_text);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Action action = actionList.get(getAdapterPosition());
+            ActionInfoBottomSheetDialogFragment addPhotoBottomDialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(action.getCategory(), action.getSum(), action.getComment(), action.getTs());
+            addPhotoBottomDialogFragment.show(FragmentManager.findFragment(view).getChildFragmentManager(), "action_info_dialog_fragment");
         }
     }
 

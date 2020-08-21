@@ -11,6 +11,7 @@
     <color name="lightGray">#AAAAAA</color>
     <color name="ultraLightGray">#C8C8C8</color>
     <color name="expenseColor">#f05545</color>
+    <color name="red">#f05545</color>
     <color name="incomeColor">#43a047</color>
 
     <array name="pieChartColors">

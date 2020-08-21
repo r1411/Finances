@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingVertical="16dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryText"
+        android:text="@string/detailed_info"
+        android:gravity="center"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/darkGray"
+        android:text="@string/category"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/action_info_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryText"
+        tools:text="Транспорт" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/darkGray"
+        android:text="@string/sum"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/action_info_sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryText"
+        tools:text="120₽" />
+
+    <TextView
+        android:id="@+id/action_info_comment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/darkGray"
+        android:text="@string/comment"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/action_info_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryText"
+        tools:text="Проехался на такси" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="15sp"
+        android:textColor="@color/darkGray"
+        android:text="@string/date"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/action_info_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryText"
+        tools:text="14 ноября 2020 в 12:00" />
+
+    <Button
+        android:id="@+id/action_info_delete_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryText"
+        android:background="@drawable/bg_red_outline_ripple" />
+
+
+</LinearLayout>
