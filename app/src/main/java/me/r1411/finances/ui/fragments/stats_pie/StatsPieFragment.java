@@ -52,6 +52,7 @@ public class StatsPieFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stats_pie, container, false);
 
         PieChart pieChart = root.findViewById(R.id.stats_pie_chart);
+        pieChart.setRenderer(new StatsPieRenderer(pieChart, pieChart.getAnimator(), pieChart.getViewPortHandler()));
         pieChart.getLegend().setEnabled(true);
         pieChart.getLegend().setTextSize(11);
         pieChart.getLegend().setWordWrapEnabled(true);
