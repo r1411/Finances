@@ -19,6 +19,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,6 +30,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
+import me.r1411.finances.MainActivity;
 import me.r1411.finances.R;
 import me.r1411.finances.daos.IncomeDao;
 import me.r1411.finances.objects.Income;
@@ -147,26 +149,26 @@ public class AddIncomeFragment extends Fragment {
 
         EditText commentEditText = root.findViewById(R.id.add_income_comment_input);
 
-        addIncomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, addIncomeViewModel.getSelectedYear().getValue());
-                cal.set(Calendar.MONTH, addIncomeViewModel.getSelectedMonth().getValue());
-                cal.set(Calendar.DAY_OF_MONTH, addIncomeViewModel.getSelectedDay().getValue());
-                cal.set(Calendar.HOUR_OF_DAY, addIncomeViewModel.getSelectedHour().getValue());
-                cal.set(Calendar.MINUTE, addIncomeViewModel.getSelectedMinute().getValue());
+        addIncomeButton.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, addIncomeViewModel.getSelectedYear().getValue());
+            cal.set(Calendar.MONTH, addIncomeViewModel.getSelectedMonth().getValue());
+            cal.set(Calendar.DAY_OF_MONTH, addIncomeViewModel.getSelectedDay().getValue());
+            cal.set(Calendar.HOUR_OF_DAY, addIncomeViewModel.getSelectedHour().getValue());
+            cal.set(Calendar.MINUTE, addIncomeViewModel.getSelectedMinute().getValue());
 
-                long ts = cal.getTimeInMillis() / 1000;
-                final Income income = new Income(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
+            long ts = cal.getTimeInMillis() / 1000;
+            final Income income = new Income(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
 
-                Executor executor = Executors.newSingleThreadExecutor();
-                executor.execute(() -> {
-                    FinancesDatabase db = FinancesApp.getInstance().getDatabase();
-                    IncomeDao incomeDao = db.incomeDao();
-                    incomeDao.insert(income);
-                });
-            }
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                FinancesDatabase db = FinancesApp.getInstance().getDatabase();
+                IncomeDao incomeDao = db.incomeDao();
+                incomeDao.insert(income);
+
+                MainActivity mainActivity = (MainActivity) FragmentManager.findFragment(view).getActivity();
+                mainActivity.runOnUiThread(() -> mainActivity.getNavController().navigate(R.id.action_global_navigation_home));
+            });
         });
 
         return root;

@@ -50,5 +50,5 @@
             android:name="actionType"
             app:argType="me.r1411.finances.objects.ActionType"
             android:defaultValue="INCOME" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_navigation_home" app:destination="@id/navigation_home"/>
 </navigation>

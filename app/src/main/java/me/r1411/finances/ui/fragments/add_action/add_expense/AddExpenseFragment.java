@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,6 +31,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
+import me.r1411.finances.MainActivity;
 import me.r1411.finances.R;
 import me.r1411.finances.daos.ExpenseDao;
 import me.r1411.finances.objects.Expense;
@@ -149,28 +152,28 @@ public class AddExpenseFragment extends Fragment {
 
         EditText commentEditText = root.findViewById(R.id.add_expense_comment_input);
 
-        addExpenseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, addExpenseViewModel.getSelectedYear().getValue());
-                cal.set(Calendar.MONTH, addExpenseViewModel.getSelectedMonth().getValue());
-                cal.set(Calendar.DAY_OF_MONTH, addExpenseViewModel.getSelectedDay().getValue());
-                cal.set(Calendar.HOUR_OF_DAY, addExpenseViewModel.getSelectedHour().getValue());
-                cal.set(Calendar.MINUTE, addExpenseViewModel.getSelectedMinute().getValue());
+        addExpenseButton.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, addExpenseViewModel.getSelectedYear().getValue());
+            cal.set(Calendar.MONTH, addExpenseViewModel.getSelectedMonth().getValue());
+            cal.set(Calendar.DAY_OF_MONTH, addExpenseViewModel.getSelectedDay().getValue());
+            cal.set(Calendar.HOUR_OF_DAY, addExpenseViewModel.getSelectedHour().getValue());
+            cal.set(Calendar.MINUTE, addExpenseViewModel.getSelectedMinute().getValue());
 
-                long ts = cal.getTimeInMillis() / 1000;
-                final Expense expense = new Expense(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
+            long ts = cal.getTimeInMillis() / 1000;
+            final Expense expense = new Expense(categorySpinner.getSelectedItem().toString(), Double.parseDouble(sumEditText.getText().toString()), ts, commentEditText.getText().toString());
 
-                Executor executor = Executors.newSingleThreadExecutor();
-                executor.execute(() -> {
-                    FinancesDatabase db = FinancesApp.getInstance().getDatabase();
-                    ExpenseDao expenseDao = db.expenseDao();
-                    expenseDao.insert(expense);
-                });
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                FinancesDatabase db = FinancesApp.getInstance().getDatabase();
+                ExpenseDao expenseDao = db.expenseDao();
+                expenseDao.insert(expense);
+
+                MainActivity mainActivity = (MainActivity) FragmentManager.findFragment(view).getActivity();
+                mainActivity.runOnUiThread(() -> mainActivity.getNavController().navigate(R.id.action_global_navigation_home));
+            });
 
 
-            }
         });
 
         return root;
