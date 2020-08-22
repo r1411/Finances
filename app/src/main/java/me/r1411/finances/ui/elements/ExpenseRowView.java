@@ -75,15 +75,17 @@ public class ExpenseRowView extends LinearLayout {
                 Expense expense = FinancesApp.getInstance().getDatabase().expenseDao().getById(this.itemId);
                 if (expense != null)
                     FinancesApp.getInstance().getDatabase().expenseDao().delete(expense);
-                Fragment fragment = FragmentManager.findFragment(this);
-                if (fragment instanceof HomeFragment) {
-                    HomeFragment homeFragment = (HomeFragment) fragment;
-                    List<Expense> latestExpenses = FinancesApp.getInstance().getDatabase().expenseDao().getLatest();
-                    homeFragment.getHomeViewModel().getLatestExpenses().postValue(latestExpenses);
-                    StatsPieFragment statsPieFragment = ((StatsPiePagerAdapter) homeFragment.getStatsPieViewPager().getAdapter()).getExpensesPieFragment();
-                    if ((statsPieFragment != null) && (statsPieFragment.getStatsPieViewModel() != null))
-                        statsPieFragment.getStatsPieViewModel().updatePieData(ActionType.EXPENSE);
-                }
+                try {
+                    Fragment fragment = FragmentManager.findFragment(this);
+                    if (fragment instanceof HomeFragment) {
+                        HomeFragment homeFragment = (HomeFragment) fragment;
+                        List<Expense> latestExpenses = FinancesApp.getInstance().getDatabase().expenseDao().getLatest();
+                        homeFragment.getHomeViewModel().getLatestExpenses().postValue(latestExpenses);
+                        StatsPieFragment statsPieFragment = ((StatsPiePagerAdapter) homeFragment.getStatsPieViewPager().getAdapter()).getExpensesPieFragment();
+                        if ((statsPieFragment != null) && (statsPieFragment.getStatsPieViewModel() != null))
+                            statsPieFragment.getStatsPieViewModel().updatePieData(ActionType.EXPENSE);
+                    }
+                } catch (IllegalStateException ignored) {}
             });
         });
         return super.performClick();

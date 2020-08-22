@@ -110,10 +110,12 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                         FinancesApp.getInstance().getDatabase().incomeDao().delete((Income) action);
                     }
                     int pos = getAdapterPosition();
-                    actionList.remove(pos);
-                    FragmentManager.findFragment(view).getActivity().runOnUiThread(() -> {
-                        notifyItemRemoved(pos);
-                    });
+                    if (pos >= 0) {
+                        actionList.remove(pos);
+                        FragmentManager.findFragment(view).getActivity().runOnUiThread(() -> {
+                            notifyItemRemoved(pos);
+                        });
+                    }
                 });
             });
         }
