@@ -7,12 +7,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
+import me.r1411.finances.objects.ActionType;
+import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.actionInfoBottomSheetDialogFragment.ActionInfoBottomSheetDialogFragment;
+import me.r1411.finances.ui.fragments.home.HomeFragment;
+import me.r1411.finances.ui.fragments.stats_pie.StatsPieFragment;
+import me.r1411.finances.ui.fragments.stats_pie.StatsPiePagerAdapter;
 
 public class IncomeRowView extends LinearLayout {
     private long itemId;
@@ -57,8 +67,25 @@ public class IncomeRowView extends LinearLayout {
 
     @Override
     public boolean performClick() {
-        ActionInfoBottomSheetDialogFragment addPhotoBottomDialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(this.getCategory(), this.getSum(), this.getComment(), this.getTs());
-        addPhotoBottomDialogFragment.show(FragmentManager.findFragment(this).getChildFragmentManager(), "action_info_dialog_fragment");
+        ActionInfoBottomSheetDialogFragment dialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(this.getCategory(), this.getSum(), this.getComment(), this.getTs());
+        dialogFragment.show(FragmentManager.findFragment(this).getChildFragmentManager(), "action_info_dialog_fragment");
+        dialogFragment.setDeleteButtonClickListener(() -> {
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                Income income = FinancesApp.getInstance().getDatabase().incomeDao().getById(this.itemId);
+                if (income != null)
+                    FinancesApp.getInstance().getDatabase().incomeDao().delete(income);
+                Fragment fragment = FragmentManager.findFragment(this);
+                if (fragment instanceof HomeFragment) {
+                    HomeFragment homeFragment = (HomeFragment) fragment;
+                    List<Income> latestIncomes = FinancesApp.getInstance().getDatabase().incomeDao().getLatest();
+                    homeFragment.getHomeViewModel().getLatestIncomes().postValue(latestIncomes);
+                    StatsPieFragment statsPieFragment = ((StatsPiePagerAdapter) homeFragment.getStatsPieViewPager().getAdapter()).getIncomesPieFragment();
+                    if ((statsPieFragment != null) && (statsPieFragment.getStatsPieViewModel() != null))
+                        statsPieFragment.getStatsPieViewModel().updatePieData(ActionType.INCOME);
+                }
+            });
+        });
         return super.performClick();
     }
 

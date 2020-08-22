@@ -32,6 +32,8 @@ import me.r1411.finances.R;
 
 public class ActionInfoBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
+    private DeleteButtonClickListener listener;
+
     public ActionInfoBottomSheetDialogFragment() {
 
     }
@@ -85,7 +87,9 @@ public class ActionInfoBottomSheetDialogFragment extends BottomSheetDialogFragme
 
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             if (which == DialogInterface.BUTTON_POSITIVE) {
-                //TODO: Create interface
+                if(this.listener != null) {
+                    listener.onDeleteButtonClicked();
+                }
             }
         };
 
@@ -135,6 +139,14 @@ public class ActionInfoBottomSheetDialogFragment extends BottomSheetDialogFragme
 
         return dialog;
     }
+
+    public void setDeleteButtonClickListener(DeleteButtonClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface DeleteButtonClickListener {
+        void onDeleteButtonClicked();
+    };
 
 
 }

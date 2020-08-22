@@ -113,4 +113,8 @@ public class StatsPieFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    public StatsPieViewModel getStatsPieViewModel() {
+        return this.statsPieViewModel;
+    }
+
 }

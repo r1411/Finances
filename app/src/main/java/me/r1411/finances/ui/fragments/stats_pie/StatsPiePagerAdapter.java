@@ -32,4 +32,12 @@ public class StatsPiePagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 2;
     }
+
+    public StatsPieFragment getExpensesPieFragment() {
+        return this.expensesPieFragment;
+    }
+
+    public StatsPieFragment getIncomesPieFragment() {
+        return this.incomesPieFragment;
+    }
 }

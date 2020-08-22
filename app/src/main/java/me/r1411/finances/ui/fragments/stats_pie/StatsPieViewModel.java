@@ -9,7 +9,6 @@ import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
-import me.r1411.finances.R;
 import me.r1411.finances.objects.Action;
 import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
@@ -30,7 +28,10 @@ public class StatsPieViewModel extends ViewModel {
     public StatsPieViewModel(ActionType actionType) {
         this.pieEntries = new MutableLiveData<>();
         this.pieCenterValue = new MutableLiveData<>();
+        updatePieData(actionType);
+    }
 
+    public void updatePieData(ActionType actionType) {
         List<PieEntry> entriesList = new ArrayList<>();
 
         Executor executor = Executors.newSingleThreadExecutor();
@@ -65,7 +66,6 @@ public class StatsPieViewModel extends ViewModel {
             this.pieEntries.postValue(entriesList);
             this.pieCenterValue.postValue(centerValue);
         });
-
     }
 
     public MutableLiveData<List<PieEntry>> getPieEntries() {

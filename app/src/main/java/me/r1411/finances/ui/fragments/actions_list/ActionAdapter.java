@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
 import me.r1411.finances.R;
@@ -97,8 +99,23 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         @Override
         public void onClick(View view) {
             Action action = actionList.get(getAdapterPosition());
-            ActionInfoBottomSheetDialogFragment addPhotoBottomDialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(action.getCategory(), action.getSum(), action.getComment(), action.getTs());
-            addPhotoBottomDialogFragment.show(FragmentManager.findFragment(view).getChildFragmentManager(), "action_info_dialog_fragment");
+            ActionInfoBottomSheetDialogFragment dialogFragment = ActionInfoBottomSheetDialogFragment.newInstance(action.getCategory(), action.getSum(), action.getComment(), action.getTs());
+            dialogFragment.show(FragmentManager.findFragment(view).getChildFragmentManager(), "action_info_dialog_fragment");
+            dialogFragment.setDeleteButtonClickListener(() -> {
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(() -> {
+                    if(action instanceof Expense) {
+                        FinancesApp.getInstance().getDatabase().expenseDao().delete((Expense) action);
+                    } else {
+                        FinancesApp.getInstance().getDatabase().incomeDao().delete((Income) action);
+                    }
+                    int pos = getAdapterPosition();
+                    actionList.remove(pos);
+                    FragmentManager.findFragment(view).getActivity().runOnUiThread(() -> {
+                        notifyItemRemoved(pos);
+                    });
+                });
+            });
         }
     }
 

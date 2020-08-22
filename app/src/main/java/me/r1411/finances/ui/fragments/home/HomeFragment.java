@@ -24,6 +24,7 @@ import me.relex.circleindicator.CircleIndicator3;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private ViewPager2 statsPieViewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -52,11 +53,11 @@ public class HomeFragment extends Fragment {
                 inflater.inflate(R.layout.layout_no_data_row, incomesLinearLayout);
             }
         });
-        ViewPager2 viewPager = root.findViewById(R.id.home_pager);
+        this.statsPieViewPager = root.findViewById(R.id.home_pager);
         StatsPiePagerAdapter adapter = new StatsPiePagerAdapter(this);
-        viewPager.setAdapter(adapter);
+        this.statsPieViewPager.setAdapter(adapter);
         CircleIndicator3 indicator = root.findViewById(R.id.home_dots_indicator);
-        indicator.setViewPager(viewPager);
+        indicator.setViewPager(this.statsPieViewPager);
         return root;
     }
 
@@ -69,5 +70,13 @@ public class HomeFragment extends Fragment {
         root.findViewById(R.id.show_recent_incomes_btn).setOnClickListener(view -> {
             Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_incomeListFragment);
         });
+    }
+
+    public HomeViewModel getHomeViewModel() {
+        return this.homeViewModel;
+    }
+
+    public ViewPager2 getStatsPieViewPager() {
+        return this.statsPieViewPager;
     }
 }
