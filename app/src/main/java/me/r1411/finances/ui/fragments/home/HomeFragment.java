@@ -14,10 +14,10 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import me.r1411.finances.R;
+import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.Income;
-import me.r1411.finances.ui.elements.ExpenseRowView;
-import me.r1411.finances.ui.elements.IncomeRowView;
+import me.r1411.finances.ui.elements.ActionRowView;
 import me.r1411.finances.ui.fragments.stats_pie.StatsPiePagerAdapter;
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -27,26 +27,26 @@ public class HomeFragment extends Fragment {
     private ViewPager2 statsPieViewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        homeViewModel.getLatestExpenses().observe(getViewLifecycleOwner(), expenses -> {
+        homeViewModel.getLatestExpenses().observe(requireActivity(), expenses -> {
             LinearLayout expensesLinearLayout = root.findViewById(R.id.expenses_list_layout);
             expensesLinearLayout.removeAllViews();
             if(expenses.size() > 0) {
                 for(Expense expense : expenses) {
-                    ExpenseRowView rowView = new ExpenseRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs(), expense.getComment());
+                    ActionRowView rowView = new ActionRowView(root.getContext(), expense.getId(), expense.getCategory(), expense.getSum(), expense.getTs(), expense.getComment(), ActionType.EXPENSE);
                     expensesLinearLayout.addView(rowView);
                 }
             } else {
                 inflater.inflate(R.layout.layout_no_data_row, expensesLinearLayout);
             }
         });
-        homeViewModel.getLatestIncomes().observe(getViewLifecycleOwner(), incomes -> {
+        homeViewModel.getLatestIncomes().observe(requireActivity(), incomes -> {
             LinearLayout incomesLinearLayout = root.findViewById(R.id.incomes_list_layout);
             incomesLinearLayout.removeAllViews();
             if(incomes.size() > 0) {
                 for(Income income : incomes) {
-                    IncomeRowView rowView = new IncomeRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs(), income.getComment());
+                    ActionRowView rowView = new ActionRowView(root.getContext(), income.getId(), income.getCategory(), income.getSum(), income.getTs(), income.getComment(), ActionType.INCOME);
                     incomesLinearLayout.addView(rowView);
                 }
             } else {

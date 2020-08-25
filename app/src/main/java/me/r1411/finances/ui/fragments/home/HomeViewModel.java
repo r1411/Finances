@@ -1,12 +1,9 @@
 package me.r1411.finances.ui.fragments.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import me.r1411.finances.FinancesApp;
@@ -22,19 +19,20 @@ public class HomeViewModel extends ViewModel {
         latestExpenses = new MutableLiveData<>();
         latestIncomes = new MutableLiveData<>();
 
+        updateLatestActions();
+    }
 
+    public void updateLatestActions() {
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Expense> expenses = FinancesApp.getInstance().getDatabase().expenseDao().getLatest();
-            latestExpenses.postValue(expenses);
+            this.latestExpenses.postValue(expenses);
         });
 
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Income> incomes = FinancesApp.getInstance().getDatabase().incomeDao().getLatest();
-            latestIncomes.postValue(incomes);
+            this.latestIncomes.postValue(incomes);
         });
-
     }
-
 
     public MutableLiveData<List<Expense>> getLatestExpenses() {
         return latestExpenses;

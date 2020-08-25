@@ -27,6 +27,7 @@ import me.r1411.finances.ui.actionInfoBottomSheetDialogFragment.ActionInfoBottom
 
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionViewHolder> {
     private List<Action> actionList = new ArrayList<>();
+    private ItemDeletionListener listener;
 
     public void setItems(Collection<Action> actions) {
         actionList.addAll(actions);
@@ -37,6 +38,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         actionList.clear();
         notifyDataSetChanged();
     }
+
+    public void setItemDeletionListener(ItemDeletionListener listener) {
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -116,9 +122,16 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                             notifyItemRemoved(pos);
                         });
                     }
+                    if(listener != null) {
+                        listener.onItemDeleted();
+                    }
                 });
             });
         }
+    }
+
+    public interface ItemDeletionListener {
+        void onItemDeleted();
     }
 
 }

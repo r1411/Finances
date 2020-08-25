@@ -36,6 +36,8 @@ import me.r1411.finances.daos.IncomeDao;
 import me.r1411.finances.objects.Income;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
+import me.r1411.finances.ui.fragments.home.HomeViewModel;
+import me.r1411.finances.ui.fragments.stats_pie.StatsPieIncomeViewModel;
 import me.r1411.finances.utils.DecimalDigitsInputFilter;
 import me.r1411.finances.utils.FinancesDatabase;
 
@@ -165,6 +167,12 @@ public class AddIncomeFragment extends Fragment {
                 FinancesDatabase db = FinancesApp.getInstance().getDatabase();
                 IncomeDao incomeDao = db.incomeDao();
                 incomeDao.insert(income);
+
+                HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+                homeViewModel.updateLatestActions();
+
+                StatsPieIncomeViewModel statsPieIncomeViewModel = new ViewModelProvider(requireActivity()).get(StatsPieIncomeViewModel.class);
+                statsPieIncomeViewModel.updatePieData();
 
                 MainActivity mainActivity = (MainActivity) FragmentManager.findFragment(view).getActivity();
                 mainActivity.runOnUiThread(() -> mainActivity.getNavController().navigate(R.id.action_global_navigation_home));

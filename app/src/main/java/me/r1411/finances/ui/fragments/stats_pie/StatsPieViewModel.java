@@ -21,17 +21,18 @@ import me.r1411.finances.objects.ActionType;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.objects.Income;
 
-public class StatsPieViewModel extends ViewModel {
+public abstract class StatsPieViewModel extends ViewModel {
+
     private MutableLiveData<List<PieEntry>> pieEntries;
     private MutableLiveData<Double> pieCenterValue;
 
-    public StatsPieViewModel(ActionType actionType) {
+    public StatsPieViewModel() {
         this.pieEntries = new MutableLiveData<>();
         this.pieCenterValue = new MutableLiveData<>();
-        updatePieData(actionType);
+        updatePieData();
     }
 
-    public void updatePieData(ActionType actionType) {
+    public void updatePieData() {
         List<PieEntry> entriesList = new ArrayList<>();
 
         Executor executor = Executors.newSingleThreadExecutor();
@@ -47,7 +48,7 @@ public class StatsPieViewModel extends ViewModel {
             Map<String, PieEntry> pieEntryMap = new HashMap<>();
             Log.d("SPVM", "Oldest date: " + (calendar.getTime().getTime() / 1000));
             double centerValue = 0;
-            if(actionType == ActionType.EXPENSE) {
+            if(getActionType() == ActionType.EXPENSE) {
                 List<Expense> expenses = FinancesApp.getInstance().getDatabase().expenseDao().getFromDate(calendar.getTime().getTime() / 1000);
                 actions.addAll(expenses);
             } else {
@@ -75,4 +76,7 @@ public class StatsPieViewModel extends ViewModel {
     public MutableLiveData<Double> getPieCenterValue() {
         return pieCenterValue;
     }
+
+    public abstract ActionType getActionType();
+
 }

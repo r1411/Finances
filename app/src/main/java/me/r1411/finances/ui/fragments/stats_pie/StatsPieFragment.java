@@ -30,6 +30,7 @@ import me.r1411.finances.objects.ActionType;
 
 public class StatsPieFragment extends Fragment {
 
+    private ActionType actionType;
     private StatsPieViewModel statsPieViewModel;
 
     public StatsPieFragment() {
@@ -46,9 +47,14 @@ public class StatsPieFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ActionType actionType = (ActionType) getArguments().getSerializable("actionType");
+        this.actionType = (ActionType) getArguments().getSerializable("actionType");
         Log.d("SPF", "ActionType: " + actionType);
-        statsPieViewModel = new ViewModelProvider(this, new StatsPieViewModelFactory(actionType)).get(StatsPieViewModel.class);
+        if(actionType == ActionType.EXPENSE) {
+            this.statsPieViewModel = new ViewModelProvider(requireActivity()).get(StatsPieExpenseViewModel.class);
+        } else {
+            this.statsPieViewModel = new ViewModelProvider(requireActivity()).get(StatsPieIncomeViewModel.class);
+        }
+
         View root = inflater.inflate(R.layout.fragment_stats_pie, container, false);
 
         PieChart pieChart = root.findViewById(R.id.stats_pie_chart);

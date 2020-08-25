@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,8 @@ import me.r1411.finances.daos.ExpenseDao;
 import me.r1411.finances.objects.Expense;
 import me.r1411.finances.ui.elements.FakeSpinner;
 import me.r1411.finances.ui.elements.FakeSpinnerClickListener;
+import me.r1411.finances.ui.fragments.home.HomeViewModel;
+import me.r1411.finances.ui.fragments.stats_pie.StatsPieExpenseViewModel;
 import me.r1411.finances.utils.DecimalDigitsInputFilter;
 import me.r1411.finances.utils.FinancesDatabase;
 
@@ -169,6 +170,12 @@ public class AddExpenseFragment extends Fragment {
                 ExpenseDao expenseDao = db.expenseDao();
                 expenseDao.insert(expense);
 
+                HomeViewModel homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+                homeViewModel.updateLatestActions();
+
+                StatsPieExpenseViewModel statsPieExpenseViewModel = new ViewModelProvider(requireActivity()).get(StatsPieExpenseViewModel.class);
+                statsPieExpenseViewModel.updatePieData();
+                
                 MainActivity mainActivity = (MainActivity) FragmentManager.findFragment(view).getActivity();
                 mainActivity.runOnUiThread(() -> mainActivity.getNavController().navigate(R.id.action_global_navigation_home));
             });
